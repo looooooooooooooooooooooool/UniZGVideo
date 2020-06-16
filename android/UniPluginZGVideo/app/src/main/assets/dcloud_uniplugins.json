@@ -1,0 +1,18 @@
+{
+  "nativePlugins": [
+    {
+      "plugins": [
+        {
+          "type": "module",
+          "name": "Fvv-UniZGVideo",
+          "class": "uni.fvv.zgvideo.UniZGVideo"
+        },
+        {
+          "type": "component",
+          "name": "Fvv-UniZGVideo",
+          "class": "uni.fvv.zgvideo.UniZGVideoComponent"
+        }
+      ]
+    }
+  ]
+}

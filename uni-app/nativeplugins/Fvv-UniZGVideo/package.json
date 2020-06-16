@@ -1,0 +1,25 @@
+{
+    "name": "UniZGVideo",
+    "id": "Fvv-UniZGVideo",
+    "version": "1.0.0",
+    "description": "安卓即构SDK拍照录像推流",
+    "_dp_type":"nativeplugin",
+    "_dp_nativeplugin":{
+        "android": {
+            "plugins": [
+                {
+                  "type": "module",
+                  "name": "Fvv-UniZGVideo",
+                  "class": "uni.fvv.zgvideo.UniZGVideo"
+                },
+                {
+                  "type": "component",
+                  "name": "Fvv-UniZGVideo",
+                  "class": "uni.fvv.zgvideo.UniZGVideoComponent"
+                }
+            ],
+			"integrateType": "aar",
+            "minSdkVersion": "17"
+        }
+    }
+}

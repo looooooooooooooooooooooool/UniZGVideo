@@ -1,0 +1,3 @@
+rootProject.name='UniPluginZGVideo'
+include ':app'
+include ':zgvideo'

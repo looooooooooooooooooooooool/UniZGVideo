@@ -1,0 +1,134 @@
+<template>
+	<view class="content"> 
+		<view class="row">
+			<Fvv-UniZGVideo  name="videoTest" style="width:200px;height:200px"  ></Fvv-UniZGVideo>
+			<Fvv-UniZGVideo  name="videoTest1"  style="width:200px;height:200px"  ></Fvv-UniZGVideo>
+		</view>
+		<button @click="init">初始化</button>
+		<button @click="preview">预览</button>
+		<view class="row">
+			<text class="text">uid:</text>
+			<input  class="input" v-model="user.userId"/>  
+			<text class="text">name:</text>
+			<input  class="input" v-model="user.userName"/>  
+			<button @click="setUser">设置用户</button>
+		</view>
+		<button @click="login">加入房间</button>
+		<view class="row">
+			<text class="text">流id:</text>
+			<input  class="input" v-model="streamId"/>  
+			<button @click="start">推流</button>
+			<button @click="stop">停止</button>  
+		</view> 
+		<view class="row">
+			<text class="text">流id:</text>
+			<input  class="input" v-model="streamId"/>  
+			<button @click="play">拉流</button>
+		</view>
+		<view class="row">
+			<button @click="startRecord">录制</button>
+			<button @click="stopRecord">停止录制</button>  
+		</view>
+		<button @click="screenShot">截图</button>     
+		<button @click="clip">裁剪视频</button>     
+		<textarea v-model="ret" class="test"></textarea>
+	</view>
+</template> 
+<style>
+	.row{flex-direction: row;justify-content: center;align-items: center;border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #ccc;}
+	.text{}
+	.input{width: 200rpx;border-width: 1px;border-style: solid;border-color: #ccc; }
+</style>
+<script>   
+	const fvvZGVideo = uni.requireNativePlugin('Fvv-UniZGVideo')
+	export default {
+		data() {
+			return {
+				title: 'Hello1',
+				ret:'',
+				user:{
+					userId:"fvv1",
+					userName:"fvv1",
+				},
+				streamId:"fvvStream",
+			}
+		},
+		onLoad() {
+
+		},
+		methods: {  
+			//初始化
+			init(){ 
+				fvvZGVideo.init({
+					appId:"app id",
+					appSign:"app sign 例如： (byte)0x01,(byte)0x02,(byte)0x03,(byte)0x04",
+				},callback => {
+					this.ret += JSON.stringify(callback)  + "\r\n"
+				}) 
+			},
+			//设置用户信息
+			setUser(){
+				fvvZGVideo.setUser(this.user)
+			},
+			//进入房间
+			login(){
+				fvvZGVideo.loginRoom({
+					roomId:"fvvRoom", 
+				})
+			},
+			//打开预览
+			preview(){
+				fvvZGVideo.startPreview({
+					view:"videoTest"
+				});
+			}, 
+			//开始推流
+			start(){
+				fvvZGVideo.startPublishing({
+					streamId:this.streamId,
+					title:"fvvStreamTitle", 
+				})
+			},
+			//停止推流
+			stop(){
+				fvvZGVideo.stopPublishing()
+			}, 
+			//拉流
+			play(){
+				fvvZGVideo.startPlayingStream({
+					streamId:this.streamId,
+					view:"videoTest1"
+				})
+			},
+			//截图
+			screenShot(){
+				fvvZGVideo.takePicture({
+					storagePath:"/sdcard/test.jpg", 
+				})
+			},
+			//开始录像
+			startRecord(){
+				fvvZGVideo.startRecord({
+					storagePath:"/sdcard/test.mp4", 
+				})
+			},
+			//停止录像
+			stopRecord(){
+				fvvZGVideo.stopRecord(); 
+			}, 
+			//裁剪视频
+			clip(){
+				fvvZGVideo.clipVideo({
+					"input": "/sdcard/test.mp4",
+					"output": "/sdcard/test_out.mp4",
+					"point": 0,
+					"duration": 9
+				})
+			}
+		},
+		mounted() {  
+			 
+		}
+	}
+</script>
+
